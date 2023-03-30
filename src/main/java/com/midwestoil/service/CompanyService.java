@@ -4,15 +4,6 @@ import com.midwestoil.dto.CompanyDTO;
 
 import java.util.List;
 
-public interface CompanyService {
+public interface CompanyService extends CrudService<CompanyDTO, Long> {
 
-    CompanyDTO save(CompanyDTO companyDTO);
-
-    CompanyDTO findById(Long id);
-
-    List<CompanyDTO> findAll();
-
-    void delete(CompanyDTO companyDTO);
-
-    void deleteById(Long id);
 }
