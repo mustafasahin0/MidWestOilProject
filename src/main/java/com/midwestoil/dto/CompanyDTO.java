@@ -15,6 +15,7 @@ public class CompanyDTO {
     private String name;
     private String phone;
     private String email;
+    private String address;
     private State state;
     private String zipCode;
     private CompanyType companyType;

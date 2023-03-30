@@ -2,15 +2,15 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="/fragments/head :: head"></head>
+<head th:replace="~{/fragments/head :: head}"></head>
 
 <body>
 
 <div class="dashboard-main-wrapper">
 
-    <div th:replace="/fragments/header :: header"></div>
+    <div th:replace="~{/fragments/header :: header}"></div>
 
-    <div th:replace="/fragments/left-sidebar :: left-sidebar"></div>
+    <div th:replace="~{/fragments/left-sidebar :: left-sidebar}"></div>
 
     <div class="dashboard-wrapper">
 
@@ -26,25 +26,25 @@
 
                             <section class="panel panel-transparent">
                                 <header class="panel-heading">
-                                    <h2 class="panel-title">User Update</h2>
+                                    <h2 class="panel-title">Company Create</h2>
                                 </header>
 
                                 <div class="panel-body">
 
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form class="needs-validation" action="#">
+                                    <form action="#">
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="firstname" class="col-form-label">First Name</label>
-                                                    <input id="firstname" type="text" placeholder="first name" class="form-control">
+                                                    <label for="companyName" class="col-form-label">Company Name</label>
+                                                    <input id="companyName" type="text" placeholder="company name" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="lastname" class="col-form-label">Last Name</label>
-                                                    <input id="lastname" type="text" placeholder="last name" class="form-control">
+                                                    <label for="phoneNum" class="col-form-label" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="12">Phone Number</label>
+                                                    <input id="phoneNum" type="tel" placeholder="123-456-7890" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -53,30 +53,14 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="emailaddress" class="col-form-label">Email Address</label>
-                                                    <input id="emailaddress" type="text" placeholder="email address" class="form-control">>
+                                                    <input id="emailaddress" type="text" placeholder="email address" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="phonenumber" class="col-form-label">Phone Number</label>
-                                                    <input id="phonenumber" type="tel" placeholder="phone number" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="password" class="col-form-label">Password</label>
-                                                    <input id="password" type="password" placeholder="password" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="repassword" class="col-form-label">Confirm Password</label>
-                                                    <input id="repassword" type="password" placeholder="confirm your password" class="form-control">
+                                                    <label for="address" class="col-form-label">Address</label>
+                                                    <input id="address" type="text" placeholder="address" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -84,23 +68,32 @@
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <label>Gender</label><br>
-                                                    <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Male</span>
-                                                    </label>
-                                                    <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Female</span>
-                                                    </label>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <label>Choose a Role</label>
-                                                    <select name="role" class="custom-select">
+                                                    <label>State</label>
+                                                    <select name="state" class="custom-select">
                                                         <option></option>
                                                     </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="zipNum" class="col-form-label" pattern="[0-9]{5}" maxlength="5">Postal Code</label>
+                                                    <input id="zipNum" type="text" placeholder="zip code" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label>Type</label><br>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Vendor</span>
+                                                    </label>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Client</span>
+                                                    </label>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -135,25 +128,29 @@
                         <div class="col-md-12">
                             <section class="panel">
                                 <header class="panel-heading">
-                                    <h2 class="panel-title">User List</h2>
+                                    <h2 class="panel-title">Company List</h2>
                                 </header>
                                 <div class="panel-body">
                                     <div class="table-responsive">
                                         <table class="table table-striped">
                                             <thead>
                                             <tr>
+                                                <th scope="col">#</th>
                                                 <th scope="col">Name</th>
-                                                <th scope="col">Email(username)</th>
-                                                <th scope="col">Gender</th>
                                                 <th scope="col">Phone</th>
-                                                <th scope="col">Role</th>
-                                                <th scope="col">Action</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Address</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Actions</th>
                                             </tr>
                                             </thead>
 
                                             <tbody>
 
                                             <tr>
+                                                <td></td>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -182,11 +179,11 @@
 
     </div>
 
-    <div th:replace="/fragments/footer :: footer"></div>
+    <div th:replace="~{/fragments/footer :: footer}"></div>
 
 </div>
 
-<div th:replace="/fragments/javascript :: js"></div>
+<div th:replace="~{/fragments/javascript :: js}"></div>
 
 </body>
 

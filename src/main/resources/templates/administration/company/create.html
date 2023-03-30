@@ -2,15 +2,15 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="/fragments/head :: head"></head>
+<head th:replace="~{/fragments/head :: head}"></head>
 
 <body>
 
 <div class="dashboard-main-wrapper">
 
-    <div th:replace="/fragments/header :: header"></div>
+    <div th:replace="~{/fragments/header :: header}"></div>
 
-    <div th:replace="/fragments/left-sidebar :: left-sidebar"></div>
+    <div th:replace="~{/fragments/left-sidebar :: left-sidebar}"></div>
 
     <div class="dashboard-wrapper">
 
@@ -32,19 +32,19 @@
                                 <div class="panel-body">
 
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form action="#">
+                                    <form action="#" th:object="${company}">
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="companyName" class="col-form-label">Company Name</label>
-                                                    <input id="companyName" type="text" placeholder="company name" class="form-control">
+                                                    <input id="companyName" type="text" th:field="*{name}" placeholder="company name" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="phoneNum" class="col-form-label" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="12">Phone Number</label>
-                                                    <input id="phoneNum" type="tel" placeholder="123-456-7890" class="form-control">
+                                                    <input id="phoneNum" type="tel" th:field="*{phone}" placeholder="123-456-7890" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -53,14 +53,14 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="emailaddress" class="col-form-label">Email Address</label>
-                                                    <input id="emailaddress" type="text" placeholder="email address" class="form-control">
+                                                    <input id="emailaddress" type="text" th:field="*{email}" placeholder="email address" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="address" class="col-form-label">Address</label>
-                                                    <input id="address" type="text" placeholder="address" class="form-control">
+                                                    <input id="address" type="text" th:field="*{address}" placeholder="address" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -69,8 +69,9 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label>State</label>
-                                                    <select name="state" class="custom-select">
-                                                        <option></option>
+                                                    <select name="state" th:field="*{state}" class="custom-select">
+                                                        <option value="" disabled selected>Select a state</option>
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -179,11 +180,11 @@
 
     </div>
 
-    <div th:replace="/fragments/footer :: footer"></div>
+    <div th:replace="~{/fragments/footer :: footer}"></div>
 
 </div>
 
-<div th:replace="/fragments/javascript :: js"></div>
+<div th:replace="~{/fragments/javascript :: js}"></div>
 
 </body>
 

@@ -2,15 +2,15 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="/fragments/head :: head"></head>
+<head th:replace="~{/fragments/head :: head}"></head>
 
 <body>
 
 <div class="dashboard-main-wrapper">
 
-    <div th:replace="/fragments/header :: header"></div>
+    <div th:replace="~{/fragments/header :: header}"></div>
 
-    <div th:replace="/fragments/left-sidebar :: left-sidebar"></div>
+    <div th:replace="~{/fragments/left-sidebar :: left-sidebar}"></div>
 
     <div class="dashboard-wrapper">
 
@@ -26,13 +26,13 @@
 
                             <section class="panel panel-transparent">
                                 <header class="panel-heading">
-                                    <h2 class="panel-title">User Update</h2>
+                                    <h2 class="panel-title">User Create</h2>
                                 </header>
 
                                 <div class="panel-body">
 
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form class="needs-validation" action="#">
+                                    <form action="#">
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
@@ -53,7 +53,7 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="emailaddress" class="col-form-label">Email Address</label>
-                                                    <input id="emailaddress" type="text" placeholder="email address" class="form-control">>
+                                                    <input id="emailaddress" type="text" placeholder="email address" class="form-control">
                                                 </div>
                                             </div>
 
@@ -182,11 +182,11 @@
 
     </div>
 
-    <div th:replace="/fragments/footer :: footer"></div>
+    <div th:replace="~{/fragments/footer :: footer}"></div>
 
 </div>
 
-<div th:replace="/fragments/javascript :: js"></div>
+<div th:replace="~{/fragments/javascript :: js}"></div>
 
 </body>
 
