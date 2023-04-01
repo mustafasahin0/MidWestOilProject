@@ -21,4 +21,8 @@ public abstract class AbstractMapService<ID, T> {
     T findById(ID id) {
         return map.get(id);
     }
+
+    void deleteById(ID id) {
+        map.remove(findById(id));
+    }
 }
