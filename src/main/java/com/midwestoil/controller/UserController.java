@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
 
     RoleService roleService;
+    UserService userService;
 
-    public UserController(RoleService roleService) {
+    public UserController(RoleService roleService, UserService userService) {
         this.roleService = roleService;
+        this.userService = userService;
     }
 
     @GetMapping("/create")
@@ -24,6 +26,7 @@ public class UserController {
 
         model.addAttribute("user", new UserDTO());
         model.addAttribute("roles", roleService.findAll());
+        model.addAttribute("users", userService.findAll());
 
         return "administration/user/create";
     }

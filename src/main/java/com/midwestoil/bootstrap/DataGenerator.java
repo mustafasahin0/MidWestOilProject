@@ -66,7 +66,7 @@ public class DataGenerator implements CommandLineRunner {
         CompanyDTO company1 = new CompanyDTO(1L, "World Fuel", "123-123-4546", "company1@email.com", "1127 New Street CI", State.ILLINOIS, "60176", CompanyType.VENDOR);
         CompanyDTO company2 = new CompanyDTO(2L, "Shell", "123-123-4546", "company1@email.com", "1127 New Street CI", State.ILLINOIS, "60176", CompanyType.CLIENT);
         CompanyDTO company3 = new CompanyDTO(3L, "Moon Fuel", "123-123-4546", "company1@email.com", "1127 New Street CI", State.INDIANA, "60176", CompanyType.VENDOR);
-        CompanyDTO company4 = new CompanyDTO(4L, "BP", "123-123-4546", "company1@email.com", "1127 New Street CI", State.ILLINOIS, "60176", CompanyType.CLIENT);
+        CompanyDTO company4 = new CompanyDTO(4L, "BP", "123-123-4546", "company1@email.com", "1127 New Street CI", State.ILLINOIS, "60176",CompanyType.CLIENT);
         CompanyDTO company5 = new CompanyDTO(5L, "Mars Fuel", "123-123-4546", "company1@email.com", "1127 New Street CI", State.COLORADO, "60176", CompanyType.VENDOR);
         CompanyDTO company6 = new CompanyDTO(6L, "Walmart", "123-123-4546", "company1@email.com", "1127 New Street CI", State.ILLINOIS, "60176", CompanyType.CLIENT);
         CompanyDTO company7 = new CompanyDTO(7L, "Galaxy Fuel", "123-123-4546", "company1@email.com", "1127 New Street CI", State.PENNSYLVANIA, "60176", CompanyType.VENDOR);

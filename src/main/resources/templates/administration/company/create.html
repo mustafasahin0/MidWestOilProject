@@ -71,7 +71,7 @@
                                                     <label>State</label>
                                                     <select name="state" th:field="*{state}" class="custom-select">
                                                         <option value="" disabled selected>Select a state</option>
-
+                                                        <option th:each="state : ${states}" th:value="${state.abbreviation}" th:text="${state.fullName}">
                                                     </select>
                                                 </div>
                                             </div>
@@ -142,27 +142,22 @@
                                                 <th scope="col">Email</th>
                                                 <th scope="col">Type</th>
                                                 <th scope="col">Address</th>
-                                                <th scope="col">Status</th>
                                                 <th scope="col">Actions</th>
                                             </tr>
                                             </thead>
 
                                             <tbody>
-
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                            <tr th:each="eachCompany : ${companies}">
+                                                <td th:text="${eachCompany.getId()}"></td>
+                                                <td th:text="${eachCompany.name}"></td>
+                                                <td th:text="${eachCompany.phone}"></td>
+                                                <td th:text="${eachCompany.email}"></td>
+                                                <td th:text="${eachCompany.companyType.value}"></td><td th:text="${eachCompany.address}"></td>
                                                 <td class="actions">
                                                     <a href="#"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
                                                     <a href="#" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
                                                 </td>
                                             </tr>
-
                                             </tbody>
                                         </table>
                                     </div>
