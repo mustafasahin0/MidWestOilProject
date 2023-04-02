@@ -7,6 +7,8 @@ import com.midwestoil.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -29,5 +31,11 @@ public class UserController {
         model.addAttribute("users", userService.findAll());
 
         return "administration/user/create";
+    }
+
+    @PostMapping("/create")
+    public String insertUser(UserDTO userDTO, Model model) {
+        userService.save(userDTO);
+        return "redirect:/administration/user/create";
     }
 }

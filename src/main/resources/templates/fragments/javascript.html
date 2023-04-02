@@ -8,7 +8,9 @@
 
   <!-- Optional JavaScript -->
   <!-- jquery 3.3.1 -->
-  <script th:src="@{/assets/vendor/jquery/jquery-3.3.1.min.js}"></script>
+<!--  <script th:src="@{/assets/vendor/jquery/jquery-3.3.1.min.js}"></script>-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
   <!-- bootstrap bundle js -->
   <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.js}"></script>
   <!-- slimscroll js -->
@@ -30,6 +32,12 @@
   <script th:src="@{/assets/vendor/datepicker/tempusdominus-bootstrap-4.js}"></script>
   <script th:src="@{/assets/vendor/datepicker/moment.js}"></script>
   <script th:src="@{/assets/vendor/datepicker/datepicker.js}"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#sortableTable').DataTable();
+    });
+  </script>
 
 </div>
 

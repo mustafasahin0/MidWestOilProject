@@ -5,6 +5,7 @@ import com.midwestoil.service.CompanyService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class CompanyServiceImpl extends AbstractMapService<Long, CompanyDTO> implements CompanyService {
