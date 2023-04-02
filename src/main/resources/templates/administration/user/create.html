@@ -162,7 +162,7 @@
                                                 <td th:text="${eachUser.phone}"></td>
                                                 <td th:text="${eachUser.role.description}"></td>
                                                 <td class="actions">
-                                                    <a href="#"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
+                                                    <a th:href="@{/administration/user/update/{id}(id=${eachUser.userName})}"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
                                                     <a href="#" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
                                                 </td>
                                             </tr>

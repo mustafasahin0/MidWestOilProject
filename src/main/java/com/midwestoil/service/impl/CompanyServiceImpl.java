@@ -26,6 +26,11 @@ public class CompanyServiceImpl extends AbstractMapService<Long, CompanyDTO> imp
     }
 
     @Override
+    public void update(CompanyDTO object) {
+        super.update(object.getId(), object);
+    }
+
+    @Override
     public CompanyDTO findById(Long id) {
         return super.findById(id);
     }
