@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{/fragments/head :: head}"></head>
+
+<body>
+
+<div class="dashboard-main-wrapper">
+
+    <div th:replace="~{/fragments/header :: header}"></div>
+
+    <div th:replace="~{/fragments/left-sidebar :: left-sidebar}"></div>
+
+    <div class="dashboard-wrapper">
+
+        <div class="dashboard-ecommerce">
+
+            <div class="container-fluid dashboard-content">
+
+                <div class="ecommerce-widget">
+
+                    <div class="row">
+
+                        <div class="col-lg-6 col-md-12">
+
+                            <section class="panel panel-transparent">
+                                <header class="panel-heading">
+                                    <h2 class="panel-title">Product Create</h2>
+                                </header>
+
+                                <div class="panel-body">
+
+                                    <!-- ------------------------FORM START----------------------------- -->
+                                    <form th:action="@{/administration/product/create}" method="post" th:object="${product}">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <dixv class="form-group">
+                                                    <label for="product" class="col-form-label">Product Name</label>
+                                                    <input id="product" type="text" th:field="*{name}" placeholder="product name" class="form-control">
+                                                </dixv>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label>Vendor</label>
+                                                    <select  th:field="*{companyName}" name="vendor" class="custom-select">
+                                                        <option value="" disabled selected>Select a vendor</option>
+                                                        <option th:each="vendor : ${vendors}" th:value="${vendor.name}" th:text="${vendor.name}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
+
+                                        <!-- ------------------------INLINE FORM START----------------------------- -->
+
+
+
+                                            <div class="row">
+                                                <div class="col-sm-4 col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="tax-name" class="col-form-label">Tax Name</label>
+                                                        <input id="tax-name" type="text" placeholder="tax name" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4 col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="tax-price" class="col-form-label">Price</label>
+                                                        <input id="tax-price" type="text" placeholder="0" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4 col-md-4">
+                                                    <div class="form-group">
+                                                        <button id="addTaxBtn"  type="button" class="btn btn-info">Add</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                        <!-- ------------------------INLIDE FORM END----------------------------- -->
+
+
+                                        <!-- ------------------------INLIDE TABLE START----------------------------- -->
+
+
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="col-md-12">
+                                                    <section class="panel">
+                                                        <header class="panel-heading">
+                                                            <h4 class="panel-title">Tax List</h4>
+                                                        </header>
+                                                        <div class="panel-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-striped">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th scope="col">Name</th>
+                                                                        <th scope="col">Unit Price</th>
+                                                                        <th scope="col">Action</th>
+                                                                    </tr>
+                                                                    </thead>
+
+                                                                    <tbody id="taxResults">
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </section>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- ------------------------INLIDE TABLE END----------------------------- -->
+
+                                            <br>
+
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6 col-lg-12">
+                                                <div class="float-right">
+                                                    <button type="submit" class="btn btn-success">Save Product</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                    <!-- ------------------------FORM END----------------------------- -->
+
+                                </div>
+
+                            </section>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ------------------------TABLE START----------------------------- -->
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-md-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    <h2 class="panel-title">Product List</h2>
+                                </header>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table id="sortableTable" class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">Product Name</th>
+                                                <th scope="col">Vendor</th>
+                                                <th scope="col">Tax Name</th>
+                                                <th scope="col">Tax Unit Price</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="actions">
+                                                    <a href="#"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
+                                                    <a href="#" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ------------------------TABLE END----------------------------- -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div th:replace="~{/fragments/footer :: footer}"></div>
+
+</div>
+
+<div th:replace="~{/fragments/javascript :: js}"></div>
+
+</body>
+
+<script>
+    const addTaxBtn = document.getElementById('addTaxBtn');
+    const taxResults = document.getElementById('taxResults');
+
+    // Create an array to store the tax data
+    const taxDataArray = [];
+
+
+    addTaxBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // get the tax name and price values from the form
+        const taxNameInput = document.getElementById('tax-name');
+        const taxPriceInput = document.getElementById('tax-price');
+        const taxName = taxNameInput.value;
+        const taxPrice = taxPriceInput.value;
+
+        // create a new row with the tax data
+        const newRow = document.createElement('tr');
+        const nameCell = document.createElement('td');
+        const priceCell = document.createElement('td');
+        const actionsCell = document.createElement('td');
+        const updateBtn = document.createElement('button');
+        const deleteBtn = document.createElement('button');
+
+        nameCell.textContent = taxName;
+        priceCell.textContent = taxPrice;
+        updateBtn.textContent = 'Update';
+        deleteBtn.textContent = 'Delete';
+
+        actionsCell.classList.add('actions');
+        updateBtn.classList.add('btn', 'btn-warning', 'btn-sm');
+        deleteBtn.classList.add('btn', 'btn-secondary', 'btn-sm');
+
+        actionsCell.appendChild(updateBtn);
+        actionsCell.appendChild(deleteBtn);
+        newRow.appendChild(nameCell);
+        newRow.appendChild(priceCell);
+        newRow.appendChild(actionsCell);
+        taxResults.appendChild(newRow);
+
+        // clear the form inputs
+        taxNameInput.value = '';
+        taxPriceInput.value = '';
+
+        // Create a new TaxDTO object for the tax data and add it to the array
+        const taxData = {
+            taxName: taxName,
+            taxPrice: taxPrice
+        };
+        taxDataArray.push(taxData);
+
+        console.log('Tax data saved to array:', taxDataArray);
+
+        // Update the hidden input field with the new tax data
+        const taxDTOListInput = document.getElementById('taxDTOList');
+        taxDTOListInput.value = JSON.stringify(taxDataArray);
+    });
+</script>
+
+</html>

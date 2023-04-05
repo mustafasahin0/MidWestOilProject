@@ -26,7 +26,7 @@
 
                             <section class="panel panel-transparent">
                                 <header class="panel-heading">
-                                    <h2 class="panel-title">Purchase Invoice</h2>
+                                    <h4 class="panel-title">Tax Create</h4>
                                 </header>
 
                                 <div class="panel-body">
@@ -36,43 +36,65 @@
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="date" class="col-form-label">Invoice Date</label>
-                                                    <input id="date" type="date" class="form-control">
+                                                    <label for="taxName" class="col-form-label">Tax Name</label>
+                                                    <input id="taxName" type="text" placeholder="company name" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <label>Vendor</label>
-                                                    <select  th:field="*{vendors}" name="vendor" class="custom-select">
-                                                        <option value="" disabled selected>Select a vendor</option>
-                                                        <option th:each="vendor : ${vendors}" th:value="${vendor.name}" th:text="${vendor.name}"></option>
-                                                    </select>
+                                                    <label for="taxPrice" class="col-form-label">Tax Price</label>
+                                                    <input id="taxPrice" type="text" placeholder="tax price" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-4 col-md-4">
+                                            <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <label>Products</label>
-                                                    <select name="products" class="custom-select">
-                                                        <option value="" disabled selected>Select a product</option>
+                                                    <label for="emailaddress" class="col-form-label">Email Address</label>
+                                                    <input id="emailaddress" type="text" placeholder="email address" class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="address" class="col-form-label">Address</label>
+                                                    <input id="address" type="text" placeholder="address" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label>State</label>
+                                                    <select name="state"  class="custom-select">
+                                                        <option value="" disabled selected>Select a state</option>
+                                                        <option>
                                                     </select>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-4 col-md-4">
+                                            <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="quantity" class="col-form-label">Quantity</label>
-                                                    <input id="quantity" type="text" placeholder="0" class="form-control">
+                                                    <label for="zipNum" class="col-form-label" pattern="[0-9]{5}" maxlength="5">Postal Code</label>
+                                                    <input id="zipNum" type="text" placeholder="zip code" class="form-control">
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <div class="col-sm-4 col-md-4">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="price" class="col-form-label">Price</label>
-                                                    <input id="price" type="text" placeholder="0" class="form-control">
+                                                    <label>Type</label><br>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" th:value="VENDOR"  name="radio-inline" class="custom-control-input"><span class="custom-control-label">Vendor</span>
+                                                    </label>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio"  name="radio-inline" class="custom-control-input"><span class="custom-control-label">Client</span>
+                                                    </label>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -107,7 +129,7 @@
                         <div class="col-md-12">
                             <section class="panel">
                                 <header class="panel-heading">
-                                    <h2 class="panel-title">User List</h2>
+                                    <h2 class="panel-title">Company List</h2>
                                 </header>
                                 <div class="panel-body">
                                     <div class="table-responsive">
@@ -115,20 +137,19 @@
                                             <thead>
                                             <tr>
                                                 <th scope="col">Name</th>
-                                                <th scope="col">Email(username)</th>
-                                                <th scope="col">Gender</th>
                                                 <th scope="col">Phone</th>
-                                                <th scope="col">Role</th>
-                                                <th scope="col">Action</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Address</th>
+                                                <th scope="col">Actions</th>
                                             </tr>
                                             </thead>
 
                                             <tbody>
-
                                             <tr>
                                                 <td></td>
                                                 <td></td>
-                                                <td></td>
+                                                <td ></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td class="actions">
@@ -136,7 +157,6 @@
                                                     <a href="#" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
                                                 </td>
                                             </tr>
-
                                             </tbody>
                                         </table>
                                     </div>

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-public class CompanyServiceImpl extends AbstractMapService<Long, CompanyDTO> implements CompanyService {
+public class CompanyServiceImpl extends AbstractMapService<CompanyDTO, Long> implements CompanyService {
 
     @Override
     public CompanyDTO save(CompanyDTO object) {

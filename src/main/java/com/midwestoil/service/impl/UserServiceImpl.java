@@ -1,13 +1,17 @@
 package com.midwestoil.service.impl;
 
+import com.midwestoil.dto.RoleDTO;
 import com.midwestoil.dto.UserDTO;
 import com.midwestoil.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl extends AbstractMapService<String, UserDTO> implements UserService {
+public class UserServiceImpl extends AbstractMapService<UserDTO, String> implements UserService {
 
     @Override
     public UserDTO save(UserDTO object) {
@@ -32,5 +36,9 @@ public class UserServiceImpl extends AbstractMapService<String, UserDTO> impleme
     @Override
     public void update(UserDTO object) {
         super.update(object.getUserName(), object);
+    }
+
+    public List<UserDTO> findEmployees() {
+       return findAll().stream().filter(each -> each.getRole().getDescription() == "Employee").collect(Collectors.toList());
     }
 }

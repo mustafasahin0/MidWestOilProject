@@ -26,65 +26,70 @@
 
                             <section class="panel panel-transparent">
                                 <header class="panel-heading">
-                                    <h2 class="panel-title">Purchase Invoice</h2>
+                                    <h2 class="panel-title">Project Create</h2>
                                 </header>
 
                                 <div class="panel-body">
 
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form>
+                                    <form th:object="${project}">
                                         <div class="row">
-                                            <div class="col-sm-6 col-md-6">
+                                            <div class="col">
                                                 <div class="form-group">
-                                                    <label for="date" class="col-form-label">Invoice Date</label>
-                                                    <input id="date" type="date" class="form-control">
+                                                    <label for="projectname" class="col-form-label">Project Name</label>
+                                                    <input id="projectname" type="text" th:field="*{projectName}" class="form-control" placeholder="project name">
                                                 </div>
                                             </div>
-
-                                            <div class="col-sm-6 col-md-6">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
                                                 <div class="form-group">
-                                                    <label>Vendor</label>
-                                                    <select  th:field="*{vendors}" name="vendor" class="custom-select">
-                                                        <option value="" disabled selected>Select a vendor</option>
-                                                        <option th:each="vendor : ${vendors}" th:value="${vendor.name}" th:text="${vendor.name}"></option>
+                                                    <label for="projectcode" class="col-form-label">Project Code</label>
+                                                    <input id="projectcode" type="text" th:field="*{projectCode}" class="form-control" placeholder="project code">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>Assigned Manager</label>
+                                                    <select th:field="*{assignedManager}" name="assignedManager" class="custom-select">
+                                                        <option value="" disabled selected>Select a manager</option>
+                                                        <!--<option th:value="''" th:text="Select"></option>-->
+                                                        <option th:each="manager : ${managers}" th:value="${manager.userName}" th:text="${manager.firstName + ' ' + manager.lastName}"></option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="row">
-                                            <div class="col-sm-4 col-md-4">
+                                            <div class="col">
                                                 <div class="form-group">
-                                                    <label>Products</label>
-                                                    <select name="products" class="custom-select">
-                                                        <option value="" disabled selected>Select a product</option>
-                                                    </select>
+                                                    <label for="startdate">Project Start Date</label>
+                                                    <input id="startdate" th:field="*{startDate}" type="date" class="form-control">
                                                 </div>
                                             </div>
-
-                                            <div class="col-sm-4 col-md-4">
+                                            <div class="col">
                                                 <div class="form-group">
-                                                    <label for="quantity" class="col-form-label">Quantity</label>
-                                                    <input id="quantity" type="text" placeholder="0" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-4 col-md-4">
-                                                <div class="form-group">
-                                                    <label for="price" class="col-form-label">Price</label>
-                                                    <input id="price" type="text" placeholder="0" class="form-control">
+                                                    <label for="enddate">Project End Date</label>
+                                                    <input id="enddate" th:field="*{endDate}" type="date" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="row">
-                                            <div class="col-sm-6 col-md-6 col-lg-12">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label for="projectdetail">Project Detail</label>
+                                                    <textarea id="projectdetail" th:field="*{projectDetail}" class="form-control" placeholder="project detail"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
                                                 <div class="float-right">
-                                                    <button type="submit" class="btn btn-success">Save</button>
+                                                    <button class="btn btn-success rounded-0" type="submit">Save</button>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </form>
                                     <!-- ------------------------FORM END----------------------------- -->
 
@@ -107,36 +112,34 @@
                         <div class="col-md-12">
                             <section class="panel">
                                 <header class="panel-heading">
-                                    <h2 class="panel-title">User List</h2>
+                                    <h2 class="panel-title">Project List</h2>
                                 </header>
                                 <div class="panel-body">
                                     <div class="table-responsive">
-                                        <table id="sortableTable" class="table table-striped">
+                                        <table class="table table-striped">
                                             <thead>
                                             <tr>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Email(username)</th>
-                                                <th scope="col">Gender</th>
-                                                <th scope="col">Phone</th>
-                                                <th scope="col">Role</th>
+                                                <th scope="col">Project Code</th>
+                                                <th scope="col">Project Name</th>
+                                                <th scope="col">Start - End Date</th>
+                                                <th scope="col">Manager</th>
+                                                <th scope="col">Status</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                             </thead>
-
                                             <tbody>
-
                                             <tr>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
-                                                <td class="actions">
-                                                    <a href="#"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
-                                                    <a href="#" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
+                                                <td>
+                                                    <a href="#"><button type="button" class="btn btn-warning rounded-0">Update</button></a>
+                                                    <a href="#"><button type="button" class="btn btn-danger rounded-0">Delete</button></a>
+                                                    <a href="#"><button type="button" class="btn btn-info rounded-0">Complete</button></a>
                                                 </td>
                                             </tr>
-
                                             </tbody>
                                         </table>
                                     </div>
