@@ -2,7 +2,6 @@ package com.midwestoil.converter;
 
 import com.midwestoil.dto.CompanyDTO;
 import com.midwestoil.dto.ProjectDTO;
-import com.midwestoil.dto.RoleDTO;
 import com.midwestoil.service.CompanyService;
 import com.midwestoil.service.ProjectService;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
@@ -11,18 +10,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationPropertiesBinding
-public class CompanyDTOConverter implements Converter<String, CompanyDTO> {
+public class ProjectDtoConverter implements Converter<String, ProjectDTO> {
 
-    CompanyService companyService;
+    ProjectService projectService;
 
     //injection
-    public CompanyDTOConverter(CompanyService companyService) {
-        this.companyService = companyService;
+    public ProjectDtoConverter(ProjectService projectService) {
+        this.projectService = projectService;
     }
 
     @Override
-    public CompanyDTO convert(String source) {
-        return companyService.findById(Long.parseLong(source));
+    public ProjectDTO convert(String source) {
+        return projectService.findById(source);
     }
 
 }

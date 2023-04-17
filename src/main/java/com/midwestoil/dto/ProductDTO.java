@@ -1,19 +1,20 @@
 package com.midwestoil.dto;
-import com.midwestoil.entity.Company;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-import java.util.List;
+import java.util.UUID;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class ProductDTO {
 
     private Long id;
     private String name;
-    private String companyName;
+    private CompanyDTO company;
 
+    public ProductDTO(Long id, String name, CompanyDTO company) {
+        this.id = id;
+        this.name = name;
+        this.company = company;
+    }
 }

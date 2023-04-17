@@ -17,23 +17,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.stream.Collectors;
 
-
+@Controller
+@RequestMapping("/administration/product")
 public class ProductController {
 
     CompanyService companyService;
     ProductService productService;
 
-    public ProductController(CompanyService companyService) {
+    public ProductController(CompanyService companyService, ProductService productService) {
         this.companyService = companyService;
+        this.productService = productService;
     }
 
+    @GetMapping("/create")
     public String createProduct(Model model) {
         model.addAttribute("product", new ProductDTO());
-        model.addAttribute("vendors", companyService.findAll().stream().filter(each -> each.getCompanyType() == CompanyType.VENDOR).collect(Collectors.toList()));
+        model.addAttribute("vendors", companyService.getCompaniesByType(CompanyType.VENDOR));
+        model.addAttribute("products", productService.findAll());
 
         return "administration/product/create";
     }
 
+    @PostMapping("/create")
     public String saveProduct(ProductDTO productDTO) {
 
         productService.save(productDTO);

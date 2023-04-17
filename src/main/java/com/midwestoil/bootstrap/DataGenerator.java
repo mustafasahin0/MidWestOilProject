@@ -1,17 +1,10 @@
 package com.midwestoil.bootstrap;
 
-import com.midwestoil.dto.CompanyDTO;
-import com.midwestoil.dto.ProjectDTO;
-import com.midwestoil.dto.RoleDTO;
-import com.midwestoil.dto.UserDTO;
-import com.midwestoil.enums.CompanyType;
-import com.midwestoil.enums.Gender;
-import com.midwestoil.enums.State;
-import com.midwestoil.enums.Status;
-import com.midwestoil.service.CompanyService;
-import com.midwestoil.service.ProjectService;
-import com.midwestoil.service.RoleService;
-import com.midwestoil.service.UserService;
+import com.midwestoil.dto.*;
+import com.midwestoil.entity.InvoiceItem;
+import com.midwestoil.entity.Product;
+import com.midwestoil.enums.*;
+import com.midwestoil.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -24,12 +17,20 @@ public class DataGenerator implements CommandLineRunner {
     UserService userService;
     CompanyService companyService;
     ProjectService projectService;
+    TaskService taskService;
+    ProductService productService;
+    InvoiceItemService invoiceItemService;
+    InvoiceService invoiceService;
 
-    public DataGenerator(RoleService roleService, UserService userService, CompanyService companyService, ProjectService projectService) {
+    public DataGenerator(RoleService roleService, UserService userService, CompanyService companyService, ProjectService projectService, TaskService taskService, ProductService productService, InvoiceItemService invoiceItemService, InvoiceService invoiceService) {
         this.roleService = roleService;
         this.userService = userService;
         this.companyService = companyService;
         this.projectService = projectService;
+        this.taskService = taskService;
+        this.productService = productService;
+        this.invoiceItemService = invoiceItemService;
+        this.invoiceService = invoiceService;
     }
 
     @Override
@@ -95,5 +96,34 @@ public class DataGenerator implements CommandLineRunner {
         projectService.save(project1);
         projectService.save(project2);
         projectService.save(project3);
+
+        TaskDTO task1 = new TaskDTO(project1, user8, "Controller", "Request Mapping", Status.IN_PROGRESS, LocalDate.now().minusDays(4));
+        TaskDTO task2 = new TaskDTO(project3, user3, "Configuration", "Database Connection", Status.COMPLETE, LocalDate.now().minusDays(12));
+        TaskDTO task3 = new TaskDTO(project3, user6, "Mapping", "One-To-Many", Status.COMPLETE, LocalDate.now().minusDays(8));
+        TaskDTO task4 = new TaskDTO(project2, user7, "Dependency Injection", "Autowired", Status.IN_PROGRESS, LocalDate.now().minusDays(20));
+
+        taskService.save(task1);
+        taskService.save(task2);
+        taskService.save(task3);
+        taskService.save(task4);
+
+        ProductDTO product1 = new ProductDTO(1L, "87 Octane", company5 );
+
+        productService.save(product1);
+
+        TaxDTO taxDTO = new TaxDTO(1L, product1, "60176", "Federal 87 Octane", "0.2");
+
+
+
+        InvoiceItemDTO invoiceItem1 = new InvoiceItemDTO(1L, product1, 1000, 0.2000, taxDTO);
+
+        invoiceItemService.save(invoiceItem1);
+
+
+        InvoiceDTO invoice1 = new InvoiceDTO(1L, "378980", LocalDate.of(2023, 04, 07), company5, InvoiceType.PURCHASE, invoiceItemService.findAll());
+
+        invoiceService.save(invoice1);
+
+
     }
 }

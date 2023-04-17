@@ -2,15 +2,15 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{/fragments/head :: head}"></head>
+<head th:replace="/fragments/head :: head"></head>
 
 <body>
 
 <div class="dashboard-main-wrapper">
 
-    <div th:replace="~{/fragments/header :: header}"></div>
+    <div th:replace="/fragments/header :: header"></div>
 
-    <div th:replace="~{/fragments/left-sidebar :: left-sidebar}"></div>
+    <div th:replace="/fragments/left-sidebar :: left-sidebar"></div>
 
     <div class="dashboard-wrapper">
 
@@ -26,83 +26,64 @@
 
                             <section class="panel panel-transparent">
                                 <header class="panel-heading">
-                                    <h4 class="panel-title">Tax Create</h4>
+                                    <h2 class="panel-title">Task Create</h2>
                                 </header>
 
                                 <div class="panel-body">
 
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="taxName" class="col-form-label">Tax Name</label>
-                                                    <input id="taxName" type="text" placeholder="company name" class="form-control">
-                                                </div>
-                                            </div>
+                                    <form th:action="@{/administration/tax/create}" method="post" th:object="${tax}">
 
-                                            <div class="col-sm-6 col-md-6">
+                                        <div class="row">
+                                            <div class="col">
                                                 <div class="form-group">
-                                                    <label for="taxPrice" class="col-form-label">Tax Price</label>
-                                                    <input id="taxPrice" type="text" placeholder="tax price" class="form-control">
+                                                    <label for="taxName">Tax Name</label>
+                                                    <textarea id="taxName" class="form-control"
+                                                              placeholder="Tax Name"
+                                                              th:field="*{name}"></textarea>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-6 col-md-6">
+                                            <div class="col">
                                                 <div class="form-group">
-                                                    <label for="emailaddress" class="col-form-label">Email Address</label>
-                                                    <input id="emailaddress" type="text" placeholder="email address" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="address" class="col-form-label">Address</label>
-                                                    <input id="address" type="text" placeholder="address" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <label>State</label>
-                                                    <select name="state"  class="custom-select">
-                                                        <option value="" disabled selected>Select a state</option>
-                                                        <option>
+                                                    <label>Assigned Product</label>
+                                                    <select name="project" class="custom-select" th:field="*{product}">
+                                                        <option th:value="''" th:text="Select"></option>
+                                                        <option th:each="eachProduct : ${products}"
+                                                                th:value="${eachProduct.getId()}"
+                                                                th:text="${eachProduct.name}"></option>
                                                     </select>
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <div class="col-sm-6 col-md-6">
+                                        <div class="row">
+                                            <div class="col">
                                                 <div class="form-group">
-                                                    <label for="zipNum" class="col-form-label" pattern="[0-9]{5}" maxlength="5">Postal Code</label>
-                                                    <input id="zipNum" type="text" placeholder="zip code" class="form-control">
+                                                    <label for="assignedZipcode" class="col-form-label">Assigned ZipCode</label>
+                                                    <input id="assignedZipcode" type="text" class="form-control"
+                                                           placeholder="tax zipCode" th:field="*{zipCode}">
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-6 col-md-6">
+                                            <div class="col">
                                                 <div class="form-group">
-                                                    <label>Type</label><br>
-                                                    <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" th:value="VENDOR"  name="radio-inline" class="custom-control-input"><span class="custom-control-label">Vendor</span>
-                                                    </label>
-                                                    <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio"  name="radio-inline" class="custom-control-input"><span class="custom-control-label">Client</span>
-                                                    </label>
-
+                                                    <label for="taxUnitPrice" class="col-form-label">Unit Price</label>
+                                                    <input id="taxUnitPrice" type="text" class="form-control"
+                                                           placeholder="unit price" th:field="*{taxPrice}">
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-6 col-md-6 col-lg-12">
+                                            <div class="col">
                                                 <div class="float-right">
-                                                    <button type="submit" class="btn btn-success">Save</button>
+                                                    <button class="btn btn-success rounded-0" type="submit">Save
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -121,7 +102,6 @@
                 </div>
 
 
-
                 <!-- ------------------------TABLE START----------------------------- -->
 
                 <div class="row">
@@ -129,32 +109,31 @@
                         <div class="col-md-12">
                             <section class="panel">
                                 <header class="panel-heading">
-                                    <h2 class="panel-title">Company List</h2>
+                                    <h2 class="panel-title">Tax List</h2>
                                 </header>
                                 <div class="panel-body">
                                     <div class="table-responsive">
-                                        <table id="sortableTable" class="table table-striped">
+                                        <table class="table table-striped">
                                             <thead>
                                             <tr>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Phone</th>
-                                                <th scope="col">Email</th>
-                                                <th scope="col">Type</th>
-                                                <th scope="col">Address</th>
-                                                <th scope="col">Actions</th>
+                                                <th scope="col">Tax Name</th>
+                                                <th scope="col">Assigned Product</th>
+                                                <th scope="col">Assigned ZipCode</th>
+                                                <th scope="col">Unit Price</th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                             </thead>
-
                                             <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td ></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td class="actions">
-                                                    <a href="#"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
-                                                    <a href="#" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
+                                            <tr th:each="eachTax : ${taxes}">
+                                                <td th:text="${eachTax.name}"></td>
+                                                <td th:text="${eachTax.product.name}"></td>
+                                                <td th:text="${eachTax.zipCode}"></td>
+                                                <td th:text="${eachTax.taxPrice}"></td>
+                                                <td>
+                                                    <a th:href="@{/administration/tax/update/{id}(id=${eachTax.getId()})}"
+                                                       class="btn btn-warning rounded-0">Update</a>
+                                                    <a th:href="@{/administration/tax/delete/{id}(id=${eachTax.getId()})}"
+                                                       class="btn btn-danger rounded-0">Delete</a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -174,11 +153,11 @@
 
     </div>
 
-    <div th:replace="~{/fragments/footer :: footer}"></div>
+    <div th:replace="/fragments/footer :: footer"></div>
 
 </div>
 
-<div th:replace="~{/fragments/javascript :: js}"></div>
+<div th:replace="/fragments/javascript :: js"></div>
 
 </body>
 

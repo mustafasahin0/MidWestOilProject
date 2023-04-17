@@ -46,7 +46,7 @@
                                                     <label>Vendor</label>
                                                     <select  th:field="*{vendors}" name="vendor" class="custom-select">
                                                         <option value="" disabled selected>Select a vendor</option>
-                                                        <option th:each="vendor : ${vendors}" th:value="${vendor.name}" th:text="${vendor.name}"></option>
+                                                        <option th:each="eachVendor : ${vendors}" th:value="${eachVendor.getId()}" th:text="${eachVendor.name}"></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -56,8 +56,9 @@
                                             <div class="col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Products</label>
-                                                    <select name="products" class="custom-select">
+                                                    <select id="products" th:field="*{products}" name="products" class="custom-select">
                                                         <option value="" disabled selected>Select a product</option>
+                                                        <option th:each="eachProduct : ${products}" th:value="${eachProduct.getId()}" th:text="${eachProduct.name}"></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -80,10 +81,45 @@
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6 col-lg-12">
                                                 <div class="float-right">
-                                                    <button type="submit" class="btn btn-success">Save</button>
+                                                    <button type="button" onclick="addProduct()" class="btn btn-success">Add Invoice</button>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!-- Add Invoice section -->
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12">
+                                                <section class="panel">
+                                                    <header class="panel-heading">
+                                                        <h2 class="panel-title">Added Products</h2>
+                                                    </header>
+                                                    <div class="panel-body">
+                                                        <div class="table-responsive">
+                                                            <table id="addedProductsTable" class="table table-striped">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th scope="col">Product Name</th>
+                                                                    <th scope="col">Quantity</th>
+                                                                    <th scope="col">Price</th>
+                                                                    <th scope="col">Subtotal</th>
+                                                                    <th scope="col">Action</th>
+                                                                </tr>
+                                                                </thead>
+
+                                                                <tbody>
+                                                                <!-- This section will be populated with added products using JavaScript -->
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                        </div>
+                                        <!-- End Add Invoice section -->
+
+                                        <br>
+
+                                        <button type="submit" class="btn btn-info">Create Invoice</button>
 
                                     </form>
                                     <!-- ------------------------FORM END----------------------------- -->

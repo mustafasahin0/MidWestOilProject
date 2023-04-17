@@ -1,17 +1,19 @@
 package com.midwestoil.service.impl;
 
+import com.midwestoil.dto.InvoiceDTO;
 import com.midwestoil.dto.ProductDTO;
-import com.midwestoil.service.ProductService;
+import com.midwestoil.service.InvoiceService;
+import com.midwestoil.service.impl.AbstractMapService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ProductServiceImpl extends AbstractMapService<ProductDTO, Long> implements ProductService {
+public class InvoiceServiceImpl extends AbstractMapService<InvoiceDTO, Long> implements InvoiceService {
 
     @Override
-    public ProductDTO save(ProductDTO object) {
+    public InvoiceDTO save(InvoiceDTO object) {
         if(object.getId() == null) {
             object.setId(UUID.randomUUID().getMostSignificantBits());
         }
@@ -20,12 +22,12 @@ public class ProductServiceImpl extends AbstractMapService<ProductDTO, Long> imp
     }
 
     @Override
-    public List<ProductDTO> findAll() {
+    public List<InvoiceDTO> findAll() {
         return super.findAll();
     }
 
     @Override
-    public void update(ProductDTO object) {
+    public void update(InvoiceDTO object) {
         super.update(object.getId(), object);
     }
 
@@ -35,7 +37,7 @@ public class ProductServiceImpl extends AbstractMapService<ProductDTO, Long> imp
     }
 
     @Override
-    public ProductDTO findById(Long id) {
+    public InvoiceDTO findById(Long id) {
         return super.findById(id);
     }
 }

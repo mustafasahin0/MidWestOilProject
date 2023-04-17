@@ -12,10 +12,15 @@ import java.util.List;
 
 @NoArgsConstructor
 @Data
-public class Product extends BaseEntity{
+public class Product {
 
     private Long id;
     private String name;
     private Company companyName;
 
+    public Product(Long id, String name, Company companyName) {
+        this.id = id;
+        this.name = name;
+        this.companyName = companyName;
+    }
 }

@@ -44,81 +44,14 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label>Vendor</label>
-                                                    <select  th:field="*{companyName}" name="vendor" class="custom-select">
+                                                    <select th:field="*{company}" name="vendor" class="custom-select">
                                                         <option value="" disabled selected>Select a vendor</option>
-                                                        <option th:each="vendor : ${vendors}" th:value="${vendor.name}" th:text="${vendor.name}"></option>
+                                                        <option th:each="vendor : ${vendors}" th:value="${vendor.getId()}" th:text="${vendor.name}"></option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
-                                        <hr />
 
-                                        <!-- ------------------------INLINE FORM START----------------------------- -->
-
-
-
-                                            <div class="row">
-                                                <div class="col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="tax-name" class="col-form-label">Tax Name</label>
-                                                        <input id="tax-name" type="text" placeholder="tax name" class="form-control">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="tax-price" class="col-form-label">Price</label>
-                                                        <input id="tax-price" type="text" placeholder="0" class="form-control">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <button id="addTaxBtn"  type="button" class="btn btn-info">Add</button>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
-                                        <!-- ------------------------INLIDE FORM END----------------------------- -->
-
-
-                                        <!-- ------------------------INLIDE TABLE START----------------------------- -->
-
-
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-12">
-                                                <div class="col-md-12">
-                                                    <section class="panel">
-                                                        <header class="panel-heading">
-                                                            <h4 class="panel-title">Tax List</h4>
-                                                        </header>
-                                                        <div class="panel-body">
-                                                            <div class="table-responsive">
-                                                                <table class="table table-striped">
-                                                                    <thead>
-                                                                    <tr>
-                                                                        <th scope="col">Name</th>
-                                                                        <th scope="col">Unit Price</th>
-                                                                        <th scope="col">Action</th>
-                                                                    </tr>
-                                                                    </thead>
-
-                                                                    <tbody id="taxResults">
-
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                    </section>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- ------------------------INLIDE TABLE END----------------------------- -->
-
-                                            <br>
 
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6 col-lg-12">
@@ -159,22 +92,18 @@
                                             <tr>
                                                 <th scope="col">Product Name</th>
                                                 <th scope="col">Vendor</th>
-                                                <th scope="col">Tax Name</th>
-                                                <th scope="col">Tax Unit Price</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                             </thead>
 
                                             <tbody>
 
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                            <tr th:each="eachProduct : ${products}">
+                                                <td th:text="*{eachProduct.name}"></td>
+                                                <td th:text="*{eachProduct.getCompany.name}"></td>
                                                 <td class="actions">
-                                                    <a href="#"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
-                                                    <a href="#" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
+                                                    <a th:href="@{/administration/product/update/{id}(id=${eachProduct.getId()})}"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
+                                                    <a th:href="@{/administration/tax/delete/{id}(id=${eachProduct.getId()})}" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
                                                 </td>
                                             </tr>
 

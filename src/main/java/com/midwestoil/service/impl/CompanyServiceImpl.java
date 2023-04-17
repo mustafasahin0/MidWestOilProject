@@ -1,11 +1,13 @@
 package com.midwestoil.service.impl;
 
 import com.midwestoil.dto.CompanyDTO;
+import com.midwestoil.enums.CompanyType;
 import com.midwestoil.service.CompanyService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyServiceImpl extends AbstractMapService<CompanyDTO, Long> implements CompanyService {
@@ -33,5 +35,10 @@ public class CompanyServiceImpl extends AbstractMapService<CompanyDTO, Long> imp
     @Override
     public CompanyDTO findById(Long id) {
         return super.findById(id);
+    }
+
+    @Override
+    public List<CompanyDTO> getCompaniesByType(CompanyType companyType) {
+        return findAll().stream().filter(each -> each.getCompanyType() == companyType).collect(Collectors.toList());
     }
 }

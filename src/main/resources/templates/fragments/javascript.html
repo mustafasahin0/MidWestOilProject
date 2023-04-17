@@ -39,6 +39,75 @@
     });
   </script>
 
+  <script>
+    let addedProducts = [];
+
+    function addProduct() {
+      const productSelect = document.getElementById('products');
+      const selectedOptionIndex = productSelect.selectedIndex;
+
+      // Check if an option is selected
+      if (selectedOptionIndex <= 0) {
+        alert('Please select a product');
+        return;
+      }
+
+      const selectedOption = productSelect.options[selectedOptionIndex];
+      const productName = selectedOption.textContent.trim();
+      const productId = selectedOption.value;
+      const quantity = document.getElementById('quantity').value;
+      const price = document.getElementById('price').value;
+      const subtotal = quantity * price;
+
+      // Perform input validation for quantity and price here if needed
+
+      addedProducts.push({
+        id: productId,
+        name: productName,
+        quantity: quantity,
+        price: price,
+        subtotal: subtotal
+      });
+
+      const tableBody = document.getElementById('addedProductsTable').querySelector('tbody');
+      const newRow = document.createElement('tr');
+
+      newRow.innerHTML = `
+        <td>${productName}</td>
+        <td>${quantity}</td>
+        <td>${price}</td>
+        <td>${subtotal.toFixed(2)}</td>
+        <td class="actions">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="removeProduct(${addedProducts.length - 1})">Remove</button>
+        </td>
+    `;
+
+      tableBody.appendChild(newRow);
+    }
+
+    function removeProduct(index) {
+      addedProducts.splice(index, 1);
+      const tableBody = document.getElementById('addedProductsTable').querySelector('tbody');
+      tableBody.innerHTML = '';
+
+      addedProducts.forEach((product, idx) => {
+        const newRow = document.createElement('tr');
+
+        newRow.innerHTML = `
+            <td>${product.name}</td>
+            <td>${product.quantity}</td>
+            <td>${product.price}</td>
+            <td>${product.subtotal.toFixed(2)}</td>
+            <td class="actions">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="removeProduct(${idx})">Remove</button>
+            </td>
+        `;
+
+        tableBody.appendChild(newRow);
+      });
+    }
+  </script>
+
 </div>
 
 </body>
