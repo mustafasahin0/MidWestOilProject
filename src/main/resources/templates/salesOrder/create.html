@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{/fragments/head :: head}"></head>
+
+<body>
+
+<div class="dashboard-main-wrapper">
+
+    <div th:replace="~{/fragments/header :: header}"></div>
+
+    <div th:replace="~{/fragments/left-sidebar :: left-sidebar}"></div>
+
+    <div class="dashboard-wrapper">
+
+        <div class="dashboard-ecommerce">
+
+            <div class="container-fluid dashboard-content">
+
+                <div class="ecommerce-widget">
+
+                    <div class="row">
+
+                        <div class="col-lg-6 col-md-12">
+
+                            <section class="panel panel-transparent">
+                                <header class="panel-heading">
+                                    <h2 class="panel-title">Sales Order Create</h2>
+                                </header>
+
+                                <div class="panel-body">
+
+                                    <!-- ------------------------FORM START----------------------------- -->
+                                    <form th:action="@{/salesOrder/create}" method="post" th:object="${salesOrder}">
+
+                                        <div class="row">
+                                            <div class="col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="date" class="col-form-label">Sales Order Date</label>
+                                                    <input th:field="*{orderDate}" id="date" type="date" class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="client" class="col-form-label">Client</label>
+                                                    <select  th:field="*{client}" id="client" name="client" class="custom-select">
+                                                        <option value="" disabled selected>Select a vendor</option>
+                                                        <option th:each="eachClient : ${clients}" th:value="${eachClient.getId()}" th:text="${eachClient.name}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="vendor" class="col-form-label">Vendor</label>
+                                                    <select  th:field="*{vendor}" id="vendor" name="vendor" class="custom-select">
+                                                        <option value="" disabled selected>Select a vendor</option>
+                                                        <option th:each="eachVendor : ${vendors}" th:value="${eachVendor.getId()}" th:text="${eachVendor.name}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label>Products</label>
+                                                    <select id="products" th:field="*{product}" name="products" class="custom-select">
+                                                        <option value="" disabled selected>Select a product</option>
+                                                        <option th:each="eachProduct : ${products}" th:value="${eachProduct.getId()}" th:text="${eachProduct.name}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="quantity" class="col-form-label">Quantity</label>
+                                                    <input id="quantity" th:field="*{quantity}" type="text" placeholder="0" class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="price" class="col-form-label">Price</label>
+                                                    <input id="price" th:field="*{price}" type="text" placeholder="0" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="float-right">
+                                                    <button class="btn btn-success rounded-0" type="submit">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                    <!-- ------------------------FORM END----------------------------- -->
+
+                                </div>
+
+                            </section>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ------------------------TABLE START----------------------------- -->
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-md-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    <h2 class="panel-title">Sales Order List</h2>
+                                </header>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Order Date</th>
+                                                <th scope="col">Client</th>
+                                                <th scope="col">Assigned Vendor</th>
+                                                <th scope="col">Product</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="eachSalesOrder : ${salesOrders}">
+                                                <td th:text="${eachSalesOrder.salesOrderId}"></td>
+                                                <td th:text="${#temporals.format(eachSalesOrder.orderDate,'MM/dd/yyyy')}"></td>
+                                                <td th:text="${eachSalesOrder.client}"></td>
+                                                <td th:text="${eachSalesOrder.vendor}"></td>
+                                                <td th:text="${eachSalesOrder.product}"></td>
+                                                <td th:text="${eachSalesOrder.quantity}"></td>
+                                                <td th:text="${eachSalesOrder.price}"></td>
+                                                <td>
+                                                    <a th:href="@{/task/update/{id}(id=${task.getId()})}"
+                                                       class="btn btn-warning rounded-0">Update</a>
+                                                    <a th:href="@{/task/delete/{id}(id=${task.getId()})}"
+                                                       class="btn btn-danger rounded-0">Delete</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ------------------------TABLE END----------------------------- -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div th:replace="~{/fragments/footer :: footer}"></div>
+
+</div>
+
+<div th:replace="~{/fragments/javascript :: js}"></div>
+
+</body>
+
+</html>
