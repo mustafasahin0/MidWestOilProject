@@ -18,6 +18,7 @@ public class InvoiceDTO {
     private Long id;
     private String invoiceNumber;
     private LocalDate invoiceDate;
+    private SalesOrderDTO salesOrderId;
     private CompanyDTO company;
     private InvoiceType invoiceType;
     private List<InvoiceItemDTO> items;

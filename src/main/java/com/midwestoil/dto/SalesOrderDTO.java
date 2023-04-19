@@ -16,9 +16,9 @@ import java.time.LocalDate;
 public class SalesOrderDTO {
 
     private Long salesOrderId;
-    private Company vendor;
-    private Company client;
-    private Product product;
+    private CompanyDTO vendor;
+    private CompanyDTO client;
+    private ProductDTO product;
     private Double price;
     private Double quantity;
     private LocalDate orderDate;

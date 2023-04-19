@@ -132,6 +132,7 @@
                                                 <th scope="col">Product</th>
                                                 <th scope="col">Quantity</th>
                                                 <th scope="col">Price</th>
+                                                <th scope="col">Status</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                             </thead>
@@ -139,15 +140,15 @@
                                             <tr th:each="eachSalesOrder : ${salesOrders}">
                                                 <td th:text="${eachSalesOrder.salesOrderId}"></td>
                                                 <td th:text="${#temporals.format(eachSalesOrder.orderDate,'MM/dd/yyyy')}"></td>
-                                                <td th:text="${eachSalesOrder.client}"></td>
-                                                <td th:text="${eachSalesOrder.vendor}"></td>
-                                                <td th:text="${eachSalesOrder.product}"></td>
+                                                <td th:text="${eachSalesOrder.client.name}"></td>
+                                                <td th:text="${eachSalesOrder.vendor.name}"></td>
+                                                <td th:text="${eachSalesOrder.product.name}"></td>
                                                 <td th:text="${eachSalesOrder.quantity}"></td>
                                                 <td th:text="${eachSalesOrder.price}"></td>
-                                                <td>
-                                                    <a th:href="@{/task/update/{id}(id=${task.getId()})}"
+                                                <td th:text="${eachSalesOrder.salesOrderStatus.getValue()}"></td>
+                                                <td><a href="#"
                                                        class="btn btn-warning rounded-0">Update</a>
-                                                    <a th:href="@{/task/delete/{id}(id=${task.getId()})}"
+                                                    <a href="#"
                                                        class="btn btn-danger rounded-0">Delete</a>
                                                 </td>
                                             </tr>

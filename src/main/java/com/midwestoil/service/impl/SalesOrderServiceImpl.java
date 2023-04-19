@@ -29,7 +29,8 @@ public class SalesOrderServiceImpl extends AbstractMapService<SalesOrderDTO, Lon
         }
 
         if (object.getSalesOrderId() == null) {
-            object.setSalesOrderId(UUID.randomUUID().getMostSignificantBits());
+            long mostSignificantBits = Math.abs(UUID.randomUUID().getMostSignificantBits() % 900000) + 100000;
+            object.setSalesOrderId(mostSignificantBits);
         }
 
         return super.save(object.getSalesOrderId(), object);

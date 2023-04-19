@@ -32,19 +32,31 @@
                                 <div class="panel-body">
 
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form>
+                                    <form th:object="${purchaseOrder}">
                                         <div class="row">
-                                            <div class="col-sm-6 col-md-6">
+
+                                            <div class="col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="salesOrder">Sales Order</label>
+                                                    <select  th:field="*{salesOrderId}" id="salesOrder" name="salesOrder" class="custom-select">
+                                                        <option value="" disabled selected>Select the sales order #</option>
+                                                        <option th:each="eachSalesOrder : ${salesOrders}" th:value="${eachSalesOrder.getSalesOrderId()}" th:text="${eachSalesOrder.getSalesOrderId()}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label for="date" class="col-form-label">Invoice Date</label>
                                                     <input id="date" type="date" class="form-control">
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6 col-md-6">
+                                            <div class="col-sm-4 col-md-4">
                                                 <div class="form-group">
-                                                    <label>Vendor</label>
-                                                    <select  th:field="*{vendors}" name="vendor" class="custom-select">
+                                                    <label for="vendor">Vendor</label>
+                                                    <select  th:field="*{company}" id="vendor" name="vendor" class="custom-select">
                                                         <option value="" disabled selected>Select a vendor</option>
                                                         <option th:each="eachVendor : ${vendors}" th:value="${eachVendor.getId()}" th:text="${eachVendor.name}"></option>
                                                     </select>
@@ -56,7 +68,7 @@
                                             <div class="col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Products</label>
-                                                    <select id="products" th:field="*{products}" name="products" class="custom-select">
+                                                    <select id="products"  name="products" class="custom-select">
                                                         <option value="" disabled selected>Select a product</option>
                                                         <option th:each="eachProduct : ${products}" th:value="${eachProduct.getId()}" th:text="${eachProduct.name}"></option>
                                                     </select>
@@ -66,7 +78,7 @@
                                             <div class="col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label for="quantity" class="col-form-label">Quantity</label>
-                                                    <input id="quantity" type="text" placeholder="0" class="form-control">
+                                                    <input id="quantity"  type="text" placeholder="0" class="form-control">
                                                 </div>
                                             </div>
 
@@ -120,7 +132,6 @@
                                         <br>
 
                                         <button type="submit" class="btn btn-info">Create Invoice</button>
-
                                     </form>
                                     <!-- ------------------------FORM END----------------------------- -->
 

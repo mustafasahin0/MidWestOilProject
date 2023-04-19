@@ -21,8 +21,9 @@ public class DataGenerator implements CommandLineRunner {
     ProductService productService;
     InvoiceItemService invoiceItemService;
     InvoiceService invoiceService;
+    SalesOrderService salesOrderService;
 
-    public DataGenerator(RoleService roleService, UserService userService, CompanyService companyService, ProjectService projectService, TaskService taskService, ProductService productService, InvoiceItemService invoiceItemService, InvoiceService invoiceService) {
+    public DataGenerator(RoleService roleService, UserService userService, CompanyService companyService, ProjectService projectService, TaskService taskService, ProductService productService, InvoiceItemService invoiceItemService, InvoiceService invoiceService, SalesOrderService salesOrderService) {
         this.roleService = roleService;
         this.userService = userService;
         this.companyService = companyService;
@@ -31,6 +32,7 @@ public class DataGenerator implements CommandLineRunner {
         this.productService = productService;
         this.invoiceItemService = invoiceItemService;
         this.invoiceService = invoiceService;
+        this.salesOrderService = salesOrderService;
     }
 
     @Override
@@ -119,8 +121,10 @@ public class DataGenerator implements CommandLineRunner {
 
         invoiceItemService.save(invoiceItem1);
 
+        SalesOrderDTO salesOrder1 = new SalesOrderDTO(443399L,company3,  company4, product1, 0.2000, 1000.00, LocalDate.of(2023, 04, 07),Status.OPEN);
+        salesOrderService.save(salesOrder1);
 
-        InvoiceDTO invoice1 = new InvoiceDTO(1L, "378980", LocalDate.of(2023, 04, 07), company5, InvoiceType.PURCHASE, invoiceItemService.findAll());
+        InvoiceDTO invoice1 = new InvoiceDTO(1L, "378980", LocalDate.of(2023, 04, 07), salesOrder1, company5, InvoiceType.PURCHASE, invoiceItemService.findAll());
 
         invoiceService.save(invoice1);
 

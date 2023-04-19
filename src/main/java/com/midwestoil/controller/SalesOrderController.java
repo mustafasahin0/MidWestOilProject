@@ -1,7 +1,9 @@
 package com.midwestoil.controller;
 
+import com.midwestoil.dto.ProjectDTO;
 import com.midwestoil.dto.SalesOrderDTO;
 import com.midwestoil.dto.TaskDTO;
+import com.midwestoil.dto.UserDTO;
 import com.midwestoil.enums.CompanyType;
 import com.midwestoil.service.*;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/salesOrder")
@@ -36,6 +40,20 @@ public class SalesOrderController {
         model.addAttribute("salesOrders", salesOrderService.findAll());
 
 
-        return "salesOrder/create";
+        return "/salesOrder/create";
+    }
+
+    @PostMapping("/create")
+    public String insertTask(SalesOrderDTO salesOrderDTO) {
+        salesOrderService.save(salesOrderDTO);
+        return "redirect:/salesOrder/create";
+    }
+
+    @GetMapping("/status")
+    public String getAllSalesOrders(Model model) {
+
+        model.addAttribute("salesOrders", salesOrderService.findAll());
+
+        return "/manager/salesOrder-status";
     }
 }
