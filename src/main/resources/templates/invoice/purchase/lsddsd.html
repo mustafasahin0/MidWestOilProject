@@ -26,14 +26,13 @@
 
                             <section class="panel panel-transparent">
                                 <header class="panel-heading">
-                                    <h2 class="panel-title">Purchase Invoice Create</h2>
+                                    <h2 class="panel-title">Purchase Invoice</h2>
                                 </header>
 
                                 <div class="panel-body">
 
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form th:action="@{/invoice/purchase/create}" method="post" th:object="${purchaseInvoice}">
-
+                                    <form th:object="${purchaseOrder}">
                                         <div class="row">
 
                                             <div class="col-sm-4 col-md-4">
@@ -57,7 +56,7 @@
                                             <div class="col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label for="vendor">Vendor</label>
-                                                    <select  th:field="*{vendor}" id="vendor" name="vendor" class="custom-select">
+                                                    <select  th:field="*{company}" id="vendor" name="vendor" class="custom-select">
                                                         <option value="" disabled selected>Select a vendor</option>
                                                         <option th:each="eachVendor : ${vendors}" th:value="${eachVendor.getId()}" th:text="${eachVendor.name}"></option>
                                                     </select>
@@ -69,7 +68,7 @@
                                             <div class="col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Products</label>
-                                                    <select th:field="*{product}" id="products"  name="products" class="custom-select">
+                                                    <select id="products"  name="products" class="custom-select">
                                                         <option value="" disabled selected>Select a product</option>
                                                         <option th:each="eachProduct : ${products}" th:value="${eachProduct.getId()}" th:text="${eachProduct.name}"></option>
                                                     </select>
@@ -79,27 +78,60 @@
                                             <div class="col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label for="quantity" class="col-form-label">Quantity</label>
-                                                    <input th:field="*{quantity}" id="quantity"  type="text" placeholder="0" class="form-control">
+                                                    <input id="quantity"  type="text" placeholder="0" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label for="price" class="col-form-label">Price</label>
-                                                    <input th:field="*{price}" id="price" type="text" placeholder="0" class="form-control">
+                                                    <input id="price" type="text" placeholder="0" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col-sm-6 col-md-6 col-lg-12">
                                                 <div class="float-right">
-                                                    <button class="btn btn-success rounded-0" type="submit">Save
-                                                    </button>
+                                                    <button type="button" onclick="addProduct()" class="btn btn-success">Add Invoice</button>
                                                 </div>
                                             </div>
                                         </div>
 
+                                        <!-- Add Invoice section -->
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12">
+                                                <section class="panel">
+                                                    <header class="panel-heading">
+                                                        <h2 class="panel-title">Added Products</h2>
+                                                    </header>
+                                                    <div class="panel-body">
+                                                        <div class="table-responsive">
+                                                            <table id="addedProductsTable" class="table table-striped">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th scope="col">Product Name</th>
+                                                                    <th scope="col">Quantity</th>
+                                                                    <th scope="col">Price</th>
+                                                                    <th scope="col">Subtotal</th>
+                                                                    <th scope="col">Action</th>
+                                                                </tr>
+                                                                </thead>
+
+                                                                <tbody>
+                                                                <!-- This section will be populated with added products using JavaScript -->
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                        </div>
+                                        <!-- End Add Invoice section -->
+
+                                        <br>
+
+                                        <button type="submit" class="btn btn-info">Create Invoice</button>
                                     </form>
                                     <!-- ------------------------FORM END----------------------------- -->
 
@@ -114,6 +146,7 @@
                 </div>
 
 
+
                 <!-- ------------------------TABLE START----------------------------- -->
 
                 <div class="row">
@@ -121,39 +154,36 @@
                         <div class="col-md-12">
                             <section class="panel">
                                 <header class="panel-heading">
-                                    <h2 class="panel-title">Purchase Invoice List</h2>
+                                    <h2 class="panel-title">User List</h2>
                                 </header>
                                 <div class="panel-body">
                                     <div class="table-responsive">
-                                        <table class="table table-striped">
+                                        <table id="sortableTable" class="table table-striped">
                                             <thead>
                                             <tr>
-                                                <th scope="col">Purchase Invoice #</th>
-                                                <th scope="col">Invoice Date</th>
-                                                <th scope="col">Vendor</th>
-                                                <th scope="col">Product</th>
-                                                <th scope="col">Quantity</th>
-                                                <th scope="col">Price</th>
-                                                <th scope="col">Assigned Client</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Email(username)</th>
+                                                <th scope="col">Gender</th>
+                                                <th scope="col">Phone</th>
+                                                <th scope="col">Role</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                             </thead>
+
                                             <tbody>
-                                            <tr th:each="eachPurchaseInvoice : ${purchaseInvoices}">
-                                                <td th:text="${eachPurchaseInvoice.invoiceNumber}"></td>
-                                                <td th:text="${#temporals.format(eachPurchaseInvoice.invoiceDate,'MM/dd/yyyy')}"></td>
-                                                <td th:text="${eachPurchaseInvoice.vendor.getName()}"></td>
-                                                <td th:text="${eachPurchaseInvoice.product.getName()}"></td>
-                                                <td th:text="${eachPurchaseInvoice.quantity}"></td>
-                                                <td th:text="${eachPurchaseInvoice.price}"></td>
-                                                <td th:text="${eachPurchaseInvoice.salesOrderId.client.getName()}"></td>
-                                                <td>
-                                                    <a href="#"
-                                                       class="btn btn-warning rounded-0">Update</a>
-                                                    <a href="#"
-                                                       class="btn btn-danger rounded-0">Delete</a>
+
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="actions">
+                                                    <a href="#"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
+                                                    <a href="#" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
                                                 </td>
                                             </tr>
+
                                             </tbody>
                                         </table>
                                     </div>

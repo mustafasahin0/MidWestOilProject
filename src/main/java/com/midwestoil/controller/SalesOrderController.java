@@ -54,6 +54,6 @@ public class SalesOrderController {
 
         model.addAttribute("salesOrders", salesOrderService.findAll());
 
-        return "/manager/salesOrder-status";
+        return "/salesOrder/status";
     }
 }

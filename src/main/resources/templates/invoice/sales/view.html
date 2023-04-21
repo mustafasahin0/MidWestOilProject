@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{/fragments/head :: head}"></head>
+
+<body>
+
+<div class="dashboard-main-wrapper">
+
+    <div th:replace="~{/fragments/header :: header}"></div>
+
+    <div th:replace="~{/fragments/left-sidebar :: left-sidebar}"></div>
+    <div class="dashboard-wrapper">
+
+    <!-- ... -->
+    <div th:object="${salesInvoice}" class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">Invoice</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <img th:src="@{/images/Midwest-logo-Trans.png}" alt="Company Logo" width="100" />
+                <p>
+                    Midwest Oil Co<br>
+                    9739 W. Irving Park<br>
+                    Schiller Park, IL 60176<br>
+                    Phone: 847-928-9999<br>
+                    Fax: 847-928-5555<br>
+                    www.midwest-oil.com<br>
+                </p>
+            </div>
+            <div class="col-6 text-right mt-4">
+                <p>
+                    <strong>Invoice Number:</strong> <span th:text="*{invoiceNumber}"></span><br>
+                    <strong>Invoice Date:</strong> <span th:text="*{invoiceDate}"></span><br>
+                </p>
+                <p>
+                    <strong>Company Name:</strong> <span th:text="*{salesOrderId.client.name}"></span><br>
+                    <strong>Address:</strong> <span th:text="*{salesOrderId.client.address + ' ' + salesOrderId.client.zipCode}"></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h3>Invoice Items</h3>
+                <table th:object="${salesInvoice.purchaseInvoice}" class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">Quantity Received</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Unit Price</th>
+                        <th scope="col">Total Tax</th>
+                        <th scope="col">Extended Amount</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <tr>
+                        <td th:text="${salesInvoice.purchaseInvoice.quantity}" ></td>
+                        <td th:text="${salesInvoice.purchaseInvoice.product.name}"></td>
+                        <td th:text="${salesInvoice.salesOrderId.price}"></td>
+                        <td th:text="${salesInvoice.purchaseInvoice.taxAmount}"></td>
+                        <td th:text="${salesInvoice.salesOrderId.price * salesInvoice.purchaseInvoice.quantity}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/invoices" class="btn btn-primary">Back to Invoices</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- ... -->
+
+    <div th:replace="~{/fragments/footer :: footer}"></div>
+
+</div>
+
+<div th:replace="~{/fragments/javascript :: js}"></div>
+
+</body>
+
+</html>
