@@ -49,9 +49,21 @@
                                                 <td th:text="${eachSalesOrder.orderDate}"></td>
                                                 <td th:text="${eachSalesOrder.client.getName()}"></td>
                                                 <td th:text="${eachSalesOrder.vendor.getName()}"></td>
-                                                <td th:text="${eachSalesOrder.product.getName()}"></td>
-                                                <td th:text="${eachSalesOrder.quantity}"></td>
-                                                <td th:text="${eachSalesOrder.price}"></td>
+                                                <td>
+                                                    <ul>
+                                                        <li th:each="orderItem : ${eachSalesOrder.orderItems}" th:text="${orderItem.product.name}"></li>
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul>
+                                                        <li th:each="orderItem : ${eachSalesOrder.orderItems}" th:text="${orderItem.quantity}"></li>
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul>
+                                                        <li th:each="orderItem : ${eachSalesOrder.orderItems}" th:text="${orderItem.unitPrice}"></li>
+                                                    </ul>
+                                                </td>
                                                 <td th:text="${eachSalesOrder.salesOrderStatus.getValue()}"></td>
                                                 <td>
                                                     <!--Show this if the project can be completed-->

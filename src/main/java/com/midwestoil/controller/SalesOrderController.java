@@ -1,19 +1,15 @@
 package com.midwestoil.controller;
 
-import com.midwestoil.dto.ProjectDTO;
-import com.midwestoil.dto.SalesOrderDTO;
-import com.midwestoil.dto.TaskDTO;
-import com.midwestoil.dto.UserDTO;
+import com.midwestoil.dto.*;
 import com.midwestoil.enums.CompanyType;
 import com.midwestoil.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/salesOrder")
@@ -55,5 +51,12 @@ public class SalesOrderController {
         model.addAttribute("salesOrders", salesOrderService.findAll());
 
         return "/salesOrder/status";
+    }
+
+    @GetMapping("/salesOrder/{salesOrderId}")
+    @ResponseBody
+    public SalesOrderDTO getSalesOrderDetails(@PathVariable("salesOrderId") Long salesOrderId) {
+        // Retrieve the sales order details based on the salesOrderId
+        return salesOrderService.findById(salesOrderId);
     }
 }

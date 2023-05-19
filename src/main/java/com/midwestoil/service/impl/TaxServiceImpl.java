@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -14,6 +15,9 @@ public class TaxServiceImpl extends AbstractMapService<TaxDTO, Long> implements 
 
     @Override
     public TaxDTO save(TaxDTO object) {
+        if(object.getId() == null) {
+            object.setId(UUID.randomUUID().getMostSignificantBits());
+        }
         return super.save(object.getId(), object);
     }
 

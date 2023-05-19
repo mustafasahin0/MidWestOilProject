@@ -55,9 +55,9 @@
                                             <div class="col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label for="vendor" class="col-form-label">Vendor</label>
-                                                    <select  th:field="*{vendor}" id="vendor" name="vendor" class="custom-select">
+                                                    <select onchange="updateProductCheckboxes()" th:field="*{vendor}" id="vendor" name="vendor" class="custom-select">
                                                         <option value="" disabled selected>Select a vendor</option>
-                                                        <option th:each="eachVendor : ${vendors}" th:value="${eachVendor.getId()}" th:text="${eachVendor.name}"></option>
+                                                        <option th:each="eachVendor : ${vendors}" th:value="${eachVendor.id}" th:text="${eachVendor.name}"></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -67,25 +67,38 @@
                                             <div class="col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Products</label>
-                                                    <select id="products" th:field="*{product}" name="products" class="custom-select">
-                                                        <option value="" disabled selected>Select a product</option>
-                                                        <option th:each="eachProduct : ${products}" th:value="${eachProduct.getId()}" th:text="${eachProduct.name}"></option>
-                                                    </select>
+                                                    <div th:each="eachVendor : ${vendors}" class="productContainer" th:data-vendor-id="${eachVendor.id}" style="display: none;">
+                                                        <div th:each="eachProduct : ${products}">
+                                                            <input type="checkbox" th:if="${eachProduct.company.id} == ${eachVendor.id}" name="products" th:value="${eachProduct.id}"/>
+                                                            <label th:if="${eachProduct.company.id} == ${eachVendor.id}" th:text="${eachProduct.name}"></label>
+                                                            <br th:if="${eachProduct.company.id} == ${eachVendor.id}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="btn btn-primary" onclick="addProductToOrder()">Add Product</button>
+                                            </div>
+                                            <!-- ... -->
+
+                                            <!-- Add table for displaying added products -->
+                                            <div class="col-lg-12 col-md-12 mt-3">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered" id="addedProductsTable">
+                                                        <thead>
+                                                        <tr>
+                                                            <th scope="col">Product</th>
+                                                            <th scope="col">Quantity</th>
+                                                            <th scope="col">Unit Price</th>
+                                                            <th scope="col">Actions</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-4 col-md-4">
-                                                <div class="form-group">
-                                                    <label for="quantity" class="col-form-label">Quantity</label>
-                                                    <input id="quantity" th:field="*{quantity}" type="text" placeholder="0" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-4 col-md-4">
-                                                <div class="form-group">
-                                                    <label for="price" class="col-form-label">Price</label>
-                                                    <input id="price" th:field="*{price}" type="text" placeholder="0" class="form-control">
-                                                </div>
+                                            <div id="orderItems" th:field="*{orderItems}">
+                                                <!-- Order items will be dynamically added here -->
                                             </div>
                                         </div>
 
@@ -142,9 +155,21 @@
                                                 <td th:text="${#temporals.format(eachSalesOrder.orderDate,'MM/dd/yyyy')}"></td>
                                                 <td th:text="${eachSalesOrder.client.name}"></td>
                                                 <td th:text="${eachSalesOrder.vendor.name}"></td>
-                                                <td th:text="${eachSalesOrder.product.name}"></td>
-                                                <td th:text="${eachSalesOrder.quantity}"></td>
-                                                <td th:text="${eachSalesOrder.price}"></td>
+                                                <td>
+                                                    <ul>
+                                                        <li th:each="orderItem : ${eachSalesOrder.orderItems}" th:text="${orderItem.product.name}"></li>
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul>
+                                                        <li th:each="orderItem : ${eachSalesOrder.orderItems}" th:text="${orderItem.quantity}"></li>
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul>
+                                                        <li th:each="orderItem : ${eachSalesOrder.orderItems}" th:text="${orderItem.unitPrice}"></li>
+                                                    </ul>
+                                                </td>
                                                 <td th:text="${eachSalesOrder.salesOrderStatus.getValue()}"></td>
                                                 <td><a href="#"
                                                        class="btn btn-warning rounded-0">Update</a>

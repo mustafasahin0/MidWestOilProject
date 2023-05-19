@@ -79,7 +79,7 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="zipNum" class="col-form-label" pattern="[0-9]{5}" maxlength="5">Postal Code</label>
-                                                    <input id="zipNum" type="text" placeholder="zip code" class="form-control">
+                                                    <input id="zipNum" th:field="*{zipCode}" type="text" placeholder="zip code" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -150,7 +150,8 @@
                                                 <td th:text="${eachCompany.name}"></td>
                                                 <td th:text="${eachCompany.phone}"></td>
                                                 <td th:text="${eachCompany.email}"></td>
-                                                <td th:text="${eachCompany.companyType.value}"></td><td th:text="${eachCompany.address}"></td>
+                                                <td th:text="${eachCompany.companyType.value}"></td>
+                                                <td th:text="${eachCompany.address + ' ' + eachCompany.getZipCode()}"></td>
                                                 <td class="actions">
                                                     <a href="#"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
                                                     <a href="#" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>

@@ -1,14 +1,13 @@
 package com.midwestoil.bootstrap;
 
 import com.midwestoil.dto.*;
-import com.midwestoil.entity.InvoiceItem;
-import com.midwestoil.entity.Product;
 import com.midwestoil.enums.*;
 import com.midwestoil.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Component
 public class DataGenerator implements CommandLineRunner {
@@ -19,20 +18,20 @@ public class DataGenerator implements CommandLineRunner {
     ProjectService projectService;
     TaskService taskService;
     ProductService productService;
-    InvoiceItemService invoiceItemService;
     InvoiceService invoiceService;
     SalesOrderService salesOrderService;
+    TaxService taxService;
 
-    public DataGenerator(RoleService roleService, UserService userService, CompanyService companyService, ProjectService projectService, TaskService taskService, ProductService productService, InvoiceItemService invoiceItemService, InvoiceService invoiceService, SalesOrderService salesOrderService) {
+    public DataGenerator(RoleService roleService, UserService userService, CompanyService companyService, ProjectService projectService, TaskService taskService, ProductService productService, InvoiceService invoiceService, SalesOrderService salesOrderService, TaxService taxService) {
         this.roleService = roleService;
         this.userService = userService;
         this.companyService = companyService;
         this.projectService = projectService;
         this.taskService = taskService;
         this.productService = productService;
-        this.invoiceItemService = invoiceItemService;
         this.invoiceService = invoiceService;
         this.salesOrderService = salesOrderService;
+        this.taxService = taxService;
     }
 
     @Override
@@ -114,19 +113,13 @@ public class DataGenerator implements CommandLineRunner {
         productService.save(product1);
 
         TaxDTO taxDTO = new TaxDTO(1L, product1, "60176", "Federal 87 Octane", "0.2");
+        taxService.save(taxDTO);
 
+        OrderItemDTO orderItem1 = new OrderItemDTO(1L, product1, 1000.00, 0.2);
 
-
-        InvoiceItemDTO invoiceItem1 = new InvoiceItemDTO(1L, product1, 1000, 0.2000, taxDTO);
-
-        invoiceItemService.save(invoiceItem1);
-
-        SalesOrderDTO salesOrder1 = new SalesOrderDTO(443399L,company3,  company4, product1, 0.2000, 1000.00, LocalDate.of(2023, 04, 07),Status.OPEN);
+        SalesOrderDTO salesOrder1 = new SalesOrderDTO(443399L,company3,  company4, List.of(orderItem1),  LocalDate.of(2023, 04, 07),Status.OPEN);
         salesOrderService.save(salesOrder1);
 
-        InvoiceDTO invoice1 = new InvoiceDTO(1L, "378980", LocalDate.of(2023, 04, 07), salesOrder1, company5, InvoiceType.PURCHASE, invoiceItemService.findAll());
-
-        invoiceService.save(invoice1);
 
 
     }

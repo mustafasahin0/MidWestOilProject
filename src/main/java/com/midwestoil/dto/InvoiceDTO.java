@@ -1,7 +1,5 @@
 package com.midwestoil.dto;
 
-import com.midwestoil.entity.Company;
-import com.midwestoil.entity.InvoiceItem;
 import com.midwestoil.enums.InvoiceType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,5 +19,4 @@ public class InvoiceDTO {
     private SalesOrderDTO salesOrderId;
     private CompanyDTO company;
     private InvoiceType invoiceType;
-    private List<InvoiceItemDTO> items;
 }

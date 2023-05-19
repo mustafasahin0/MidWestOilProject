@@ -17,16 +17,14 @@ public class Invoice {
     private LocalDate invoiceDate;
     private Company company;
     private InvoiceType invoiceType;
-    private List<InvoiceItem> items;
 
 
-    public Invoice(Long id, String invoiceNumber, SalesOrder salesOrderId, LocalDate invoiceDate, Company company, InvoiceType invoiceType, List<InvoiceItem> items) {
+    public Invoice(Long id, String invoiceNumber, SalesOrder salesOrderId, LocalDate invoiceDate, Company company, InvoiceType invoiceType) {
         this.id = id;
         this.invoiceNumber = invoiceNumber;
         this.salesOrderId = salesOrderId;
         this.invoiceDate = invoiceDate;
         this.company = company;
         this.invoiceType = invoiceType;
-        this.items = items;
     }
 }

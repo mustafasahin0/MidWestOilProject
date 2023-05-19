@@ -40,71 +40,62 @@
   </script>
 
   <script>
-    let addedProducts = [];
+    function updateProductCheckboxes() {
+      const vendorId = document.getElementById("vendor").value;
+      const productContainers = document.getElementsByClassName("productContainer");
 
-    function addProduct() {
-      const productSelect = document.getElementById('products');
-      const selectedOptionIndex = productSelect.selectedIndex;
-
-      // Check if an option is selected
-      if (selectedOptionIndex <= 0) {
-        alert('Please select a product');
-        return;
+      for (const productContainer of productContainers) {
+        if (productContainer.getAttribute("data-vendor-id") === vendorId) {
+          productContainer.style.display = "block";
+        } else {
+          productContainer.style.display = "none";
+        }
       }
+    }
+  </script>
 
-      const selectedOption = productSelect.options[selectedOptionIndex];
-      const productName = selectedOption.textContent.trim();
-      const productId = selectedOption.value;
-      const quantity = document.getElementById('quantity').value;
-      const price = document.getElementById('price').value;
-      const subtotal = quantity * price;
+  <script>
+    let addedProducts = [];
+    let orderItemIndex = 0;
 
-      // Perform input validation for quantity and price here if needed
+    function addProductToOrder() {
+      const productsCheckboxes = document.querySelectorAll('input[name="products"]:checked');
+      const addedProductsTableBody = document.querySelector('#addedProductsTable tbody');
 
-      addedProducts.push({
-        id: productId,
-        name: productName,
-        quantity: quantity,
-        price: price,
-        subtotal: subtotal
+      productsCheckboxes.forEach((checkbox) => {
+        const productId = checkbox.value;
+        const productName = checkbox.nextElementSibling.textContent;
+
+        if (!addedProducts.includes(productId)) {
+          addedProducts.push(productId);
+
+          const newRow = addedProductsTableBody.insertRow();
+
+          newRow.innerHTML = `
+                  <tr>
+                  <td>${productName}<input type="hidden" name="orderItems[${orderItemIndex}].product.id" value="${productId}"></td>
+                  <td><input type="number" name="orderItems[${orderItemIndex}].quantity" min="1" value="1" class="form-control" required></td>
+                  <td><input type="number" name="orderItems[${orderItemIndex}].unitPrice" min="0" step="0.01" value="0.00" class="form-control" required></td>
+                  <td><button type="button" class="btn btn-danger" onclick="removeProductFromOrder('${productId}', this)">Remove</button></td>
+                   </tr>
+              `;
+          orderItemIndex++;
+        }
       });
-
-      const tableBody = document.getElementById('addedProductsTable').querySelector('tbody');
-      const newRow = document.createElement('tr');
-
-      newRow.innerHTML = `
-        <td>${productName}</td>
-        <td>${quantity}</td>
-        <td>${price}</td>
-        <td>${subtotal.toFixed(2)}</td>
-        <td class="actions">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="removeProduct(${addedProducts.length - 1})">Remove</button>
-        </td>
-    `;
-
-      tableBody.appendChild(newRow);
     }
 
-    function removeProduct(index) {
-      addedProducts.splice(index, 1);
-      const tableBody = document.getElementById('addedProductsTable').querySelector('tbody');
-      tableBody.innerHTML = '';
-
-      addedProducts.forEach((product, idx) => {
-        const newRow = document.createElement('tr');
-
-        newRow.innerHTML = `
-            <td>${product.name}</td>
-            <td>${product.quantity}</td>
-            <td>${product.price}</td>
-            <td>${product.subtotal.toFixed(2)}</td>
-            <td class="actions">
-                <button type="button" class="btn btn-secondary btn-sm" onclick="removeProduct(${idx})">Remove</button>
-            </td>
-        `;
-
-        tableBody.appendChild(newRow);
-      });
+    function removeProductFromOrder(productId, removeButton) {
+      addedProducts = addedProducts.filter((id) => id !== productId);
+      const rowToRemove = removeButton.parentElement.parentElement;
+      rowToRemove.remove();
+      // Recalculate the orderItemIndex and update the input names
+      orderItemIndex--;
+      const rows = document.querySelector('#addedProductsTable tbody').rows;
+      for (let i = 0; i < rows.length; i++) {
+        rows[i].querySelector('[name^="orderItems["]').name = `orderItems[${i}].product.id`;
+        rows[i].querySelector('[name^="orderItems["]').name = `orderItems[${i}].quantity`;
+        rows[i].querySelector('[name^="orderItems["]').name = `orderItems[${i}].unitPrice`;
+      }
     }
   </script>
 

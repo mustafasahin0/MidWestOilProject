@@ -15,24 +15,12 @@ public class Tax {
     private String  zipCode;
     private String name;
     private String taxPrice;
-    private Integer quantity;
 
-
-    public Tax(Long id, Product product, String zipCode, String name, String taxPrice, String quantity) {
+    public Tax(Long id, Product product, String zipCode, String name, String taxPrice) {
         this.id = id;
         this.product = product;
         this.zipCode = zipCode;
         this.name = name;
         this.taxPrice = taxPrice;
-    }
-
-
-    public Tax(Long id, Product product, String zipCode, String name, String taxPrice, Integer quantity) {
-        this.id = id;
-        this.product = product;
-        this.zipCode = zipCode;
-        this.name = name;
-        this.taxPrice = taxPrice;
-        this.quantity = quantity;
     }
 }

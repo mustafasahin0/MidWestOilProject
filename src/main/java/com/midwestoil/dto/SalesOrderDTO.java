@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,9 +19,7 @@ public class SalesOrderDTO {
     private Long salesOrderId;
     private CompanyDTO vendor;
     private CompanyDTO client;
-    private ProductDTO product;
-    private Double price;
-    private Double quantity;
+    private List<OrderItemDTO> orderItems;
     private LocalDate orderDate;
     private Status salesOrderStatus;
 

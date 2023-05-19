@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -14,6 +15,11 @@ public class CompanyServiceImpl extends AbstractMapService<CompanyDTO, Long> imp
 
     @Override
     public CompanyDTO save(CompanyDTO object) {
+
+        if(object.getId() == null) {
+            object.setId(UUID.randomUUID().getMostSignificantBits());
+        }
+
         return super.save(object.getId(), object);
     }
 

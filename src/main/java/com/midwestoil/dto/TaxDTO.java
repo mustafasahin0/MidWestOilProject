@@ -16,7 +16,6 @@ public class TaxDTO {
     private String  zipCode;
     private String name;
     private String taxPrice;
-    private String quantity;
 
     public TaxDTO(Long id, ProductDTO product, String zipCode, String name, String taxPrice) {
         this.id = id;
@@ -24,14 +23,5 @@ public class TaxDTO {
         this.zipCode = zipCode;
         this.name = name;
         this.taxPrice = taxPrice;
-    }
-
-    public TaxDTO(Long id, ProductDTO product, String zipCode, String name, String taxPrice, String quantity) {
-        this.id = id;
-        this.product = product;
-        this.zipCode = zipCode;
-        this.name = name;
-        this.taxPrice = taxPrice;
-        this.quantity = quantity;
     }
 }

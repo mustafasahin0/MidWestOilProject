@@ -5,6 +5,7 @@ import com.midwestoil.dto.SalesOrderDTO;
 import com.midwestoil.dto.TaskDTO;
 import com.midwestoil.dto.UserDTO;
 import com.midwestoil.enums.Status;
+import com.midwestoil.service.OrderItemService;
 import com.midwestoil.service.SalesOrderService;
 import com.midwestoil.service.TaskService;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,17 @@ import java.util.stream.Collectors;
 @Service
 public class SalesOrderServiceImpl extends AbstractMapService<SalesOrderDTO, Long> implements SalesOrderService {
 
+    OrderItemService orderItemService;
+
+    public SalesOrderServiceImpl(OrderItemService orderItemService) {
+        this.orderItemService = orderItemService;
+    }
 
     @Override
     public SalesOrderDTO save(SalesOrderDTO object) {
+
+        orderItemService.save(object.getOrderItems());
+
         if (object.getSalesOrderStatus() == null) {
             object.setSalesOrderStatus(Status.OPEN);
         }
@@ -32,7 +41,6 @@ public class SalesOrderServiceImpl extends AbstractMapService<SalesOrderDTO, Lon
             long mostSignificantBits = Math.abs(UUID.randomUUID().getMostSignificantBits() % 900000) + 100000;
             object.setSalesOrderId(mostSignificantBits);
         }
-
         return super.save(object.getSalesOrderId(), object);
     }
 
