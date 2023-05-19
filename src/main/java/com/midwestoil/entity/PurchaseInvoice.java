@@ -1,13 +1,10 @@
 package com.midwestoil.entity;
 
-import com.midwestoil.dto.TaxDTO;
-import com.midwestoil.enums.InvoiceType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @NoArgsConstructor
 @Data

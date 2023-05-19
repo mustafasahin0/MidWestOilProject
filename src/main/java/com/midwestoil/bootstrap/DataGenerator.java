@@ -18,18 +18,17 @@ public class DataGenerator implements CommandLineRunner {
     ProjectService projectService;
     TaskService taskService;
     ProductService productService;
-    InvoiceService invoiceService;
+
     SalesOrderService salesOrderService;
     TaxService taxService;
 
-    public DataGenerator(RoleService roleService, UserService userService, CompanyService companyService, ProjectService projectService, TaskService taskService, ProductService productService, InvoiceService invoiceService, SalesOrderService salesOrderService, TaxService taxService) {
+    public DataGenerator(RoleService roleService, UserService userService, CompanyService companyService, ProjectService projectService, TaskService taskService, ProductService productService, SalesOrderService salesOrderService, TaxService taxService) {
         this.roleService = roleService;
         this.userService = userService;
         this.companyService = companyService;
         this.projectService = projectService;
         this.taskService = taskService;
         this.productService = productService;
-        this.invoiceService = invoiceService;
         this.salesOrderService = salesOrderService;
         this.taxService = taxService;
     }
