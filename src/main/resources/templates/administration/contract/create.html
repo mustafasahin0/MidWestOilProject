@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{/fragments/head :: head}"></head>
+
+<body>
+
+<div class="dashboard-main-wrapper">
+
+    <div th:replace="~{/fragments/header :: header}"></div>
+
+    <div th:replace="~{/fragments/left-sidebar :: left-sidebar}"></div>
+
+    <div class="dashboard-wrapper">
+
+        <div class="dashboard-ecommerce">
+
+            <div class="container-fluid dashboard-content">
+
+                <div class="ecommerce-widget">
+
+                    <div class="row">
+
+                        <div class="col-lg-6 col-md-12">
+
+                            <section class="panel panel-transparent">
+                                <header class="panel-heading">
+                                    <h2 class="panel-title">Contract Create</h2>
+                                </header>
+
+                                <div class="panel-body">
+
+                                    <!-- ------------------------FORM START----------------------------- -->
+                                    <form th:action="@{/administration/contract/create}" method="post" th:object="${contract}">
+
+                                        <div class="row">
+                                            <div class="col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="client" class="col-form-label">Client</label>
+                                                    <select  th:field="*{client}" id="client" name="client" class="custom-select">
+                                                        <option value="" disabled selected>Select a vendor</option>
+                                                        <option th:each="eachClient : ${clients}" th:value="${eachClient.getId()}" th:text="${eachClient.name}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="markupPercentage" class="col-form-label">Markup Percentage</label>
+                                                    <input id="markupPercentage" th:field="*{percentage}" type="number" step="0.01" min="0" max="100"
+                                                           class="form-control" placeholder="Enter markup percentage">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="float-right">
+                                                    <button class="btn btn-success rounded-0" type="submit">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                    <!-- ------------------------FORM END----------------------------- -->
+
+                                </div>
+
+                            </section>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ------------------------TABLE START----------------------------- -->
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-md-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    <h2 class="panel-title">Contract List</h2>
+                                </header>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Client</th>
+                                                <th scope="col">Markup Percentage</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="eachContract : ${contracts}">
+                                                <td th:text="${eachContract.contractId}"></td>
+                                                <td th:text="${eachContract.client.name}"></td>
+                                                <td th:text="${eachContract.percentage}"></td>
+                                                <td class="actions">
+                                                    <a th:href="@{/administration/contract/update/{id}(id=${eachContract.contractId})}"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
+                                                    <a th:href="@{/administration/user/delete/{id}(id=${eachContract.contractId})}" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ------------------------TABLE END----------------------------- -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div th:replace="~{/fragments/footer :: footer}"></div>
+
+</div>
+
+<div th:replace="~{/fragments/javascript :: js}"></div>
+
+</body>
+
+</html>

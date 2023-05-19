@@ -64,9 +64,9 @@
                     <tr>
                         <td th:text="${salesInvoice.purchaseInvoice.quantity}" ></td>
                         <td th:text="${salesInvoice.purchaseInvoice.product.name}"></td>
-                        <td th:text="${salesInvoice.salesOrderId.price}"></td>
+                        <td th:text="${salesInvoice.salesOrderId.orderItems[0].unitPrice}"></td>
                         <td th:text="${salesInvoice.purchaseInvoice.taxAmount}"></td>
-                        <td th:text="${salesInvoice.salesOrderId.price * salesInvoice.purchaseInvoice.quantity}"></td>
+                        <td th:text="${salesInvoice.salesOrderId.orderItems[0].unitPrice * salesInvoice.purchaseInvoice.quantity}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -74,7 +74,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <a href="/invoices" class="btn btn-primary">Back to Invoices</a>
+                <a href="/invoice/sales/status" class="btn btn-primary">Back to Invoices</a>
             </div>
         </div>
     </div>

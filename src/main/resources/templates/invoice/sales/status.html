@@ -49,7 +49,7 @@
                                                 <td th:text="${eachSalesInvoices.salesOrderId.client.name}"></td>
                                                 <td th:text="${eachSalesInvoices.purchaseInvoice.product.name}"></td>
                                                 <td th:text="${eachSalesInvoices.purchaseInvoice.quantity}"></td>
-                                                <td th:text="${eachSalesInvoices.salesOrderId.price}"></td>
+                                                <td th:text="${eachSalesInvoices.purchaseInvoice.price}"></td>
                                                 <td th:text="${eachSalesInvoices.purchaseInvoice.taxAmount}"></td>
                                                 <td>
                                                     <a class="btn btn-info rounded-0" th:href="@{/invoice/sales/view/{salesInvoiceId}(salesInvoiceId=${eachSalesInvoices.invoiceNumber})}">View Sales Invoice</a>
